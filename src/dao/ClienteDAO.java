@@ -19,9 +19,9 @@ public class ClienteDAO {
 
     public boolean inserirCliente(Cliente cliente) throws Exception {
         String sql = "INSERT INTO cliente(nome, idade) VALUES (?, ?);";
-        try {
-            Connection conexao = DriverManager.getConnection(this.url, this.user, this.password);
-            PreparedStatement stmt = conexao.prepareStatement(sql);
+
+        try (Connection conexao = DriverManager.getConnection(this.url, this.user, this.password);
+            PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
             stmt.setString(1, cliente.getNome());
             stmt.setInt(2, cliente.getIdade());
